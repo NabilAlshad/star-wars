@@ -1,9 +1,9 @@
 import ReactDOM from 'react-dom';
 import './Modal.scss';
-import ModalCover from '../../../assets/single_cover.jpeg';
+import ModalCover from '@assets/single_cover.jpeg';
 import Character from '@assets/swordsman.png';
 import React from 'react';
-import Table from 'src/components/root/Table/Table';
+import Table from '@root/Table/Table';
 const Modal = (props: any) => {
 	const { isShowing, name, hide, data } = props;
 	const tableHeaders = ['Gender', 'Skin Color', 'Eye Color', 'Height'];

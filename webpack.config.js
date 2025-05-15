@@ -41,6 +41,7 @@ module.exports = {
       '@view': path.resolve(__dirname, 'src/components/view'),
       '@compound': path.resolve(__dirname, 'src/components/compound'),
       '@styles': path.resolve(__dirname, 'src/styles'),
+      '@services': path.resolve(__dirname, 'src/services'),
     },
   },
   module: {

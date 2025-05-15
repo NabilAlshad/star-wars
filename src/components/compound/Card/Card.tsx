@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import './Card.scss';
 import Character from '@assets/swordsman.png';
-import BaseButton from '../../root/BasseButton/BaseButton';
+import BaseButton from '@root/BasseButton/BaseButton';
 import Modal from '../Modal/Modal';
-import { getAllDataById } from 'src/services/api';
+import { getAllDataById } from '@services/api';
 
 const Card: React.FC = (props: any) => {
 	const { item } = props;

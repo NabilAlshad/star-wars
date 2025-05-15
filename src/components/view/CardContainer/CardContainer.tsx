@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import './CardContainer.css';
-import Card from 'src/components/compound/Card/Card';
-import Pagination from 'src/components/compound/Pagination/Pagination';
+import Card from '@compound/Card/Card';
+import Pagination from '@compound/Pagination/Pagination';
 import axios from 'Axios';
-
-const LIMIT = 12;
 
 const CardContainer = ({ isLoading, setIsLoading, ModalImage, searchQuery, limit }: any) => {
 	const [pageData, setPageData] = useState<any[]>([]);
@@ -50,7 +48,7 @@ const CardContainer = ({ isLoading, setIsLoading, ModalImage, searchQuery, limit
 		setFilteredData(filtered);
 	}, [searchQuery, pageData]);
 
-	const totalPages = Math.ceil(totalRecords / LIMIT);
+	const totalPages = Math.ceil(totalRecords / limit);
 
 	return (
 		<>

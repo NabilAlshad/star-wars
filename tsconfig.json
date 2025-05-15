@@ -18,7 +18,16 @@
 		"strictNullChecks": true,
 		"strictPropertyInitialization": true,
 		"useUnknownInCatchVariables": true,
-		"baseUrl": "./",
+		"baseUrl": "./src",
+		"paths": {
+			"@assets/*": ["assets/*"],
+			"@utils/*": ["utils/*"],
+			"@root/*": ["components/root/*"],
+			"@view/*": ["components/view/*"],
+			"@compound/*": ["components/compound/*"],
+			"@styles/*": ["styles/*"],
+			"@services/*": ["services/*"]
+		},
 		"module": "ES2022",
 		"moduleResolution": "node",
 		"target": "ES2022",
@@ -29,14 +38,5 @@
 		"isolatedModules": true
 	},
 	"include": ["src/**/**/*", "jest.setup.ts"],
-	"exclude": ["node_modules", "jest.config.js", "babel.config.js"],
-	"baseUrl": "src",
-	"paths": {
-		"@assets/*": ["assets/*"],
-		"@utils/*": ["utils/*"],
-		"@root/*": ["components/root/*"],
-		"@view/*": ["components/view/*"],
-		"@compound/*": ["components/compound/*"],
-		"@styles/*": ["styles/*"]
-	}
+	"exclude": ["node_modules", "jest.config.js", "babel.config.js"]
 }
