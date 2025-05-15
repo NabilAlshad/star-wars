@@ -1,0 +1,66 @@
+.card {
+	max-width: 300px;
+	border-top-right-radius: 40px;
+	background-color: black;
+	text-align: center;
+	overflow: hidden;
+	font-family: arial;
+	box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+}
+.img {
+	background-image: url('../../../assets/logo.png');
+	background-size: cover;
+	background-position: center;
+	width: 300px;
+	height: 200px;
+}
+
+.name {
+	color: white;
+	text-shadow: 0 0 5px #0ff;
+	font-weight: bold;
+	font-size: 20px;
+	display: flex;
+	justify-content: space-evenly;
+	align-items: center;
+	height: 50px;
+	font-style: italic;
+}
+.button {
+	border-top-right-radius: 20px;
+	background-color: rgb(240, 240, 35);
+	border: none;
+	color: black;
+	text-align: center;
+	height: 50px;
+	font-size: 22px;
+	font-weight: 900;
+	width: 100%;
+	transition: all 0.5s;
+	cursor: pointer;
+}
+
+.button span {
+	cursor: pointer;
+	display: inline-block;
+	position: relative;
+	transition: 0.5s;
+}
+
+.button span:after {
+	content: '\00bb';
+	position: absolute;
+	opacity: 0;
+	top: 0;
+	right: -20px;
+	transition: 0.5s;
+}
+
+.button:hover span {
+	padding-right: 25px;
+}
+
+.button:hover span:after {
+	opacity: 1;
+	right: 0;
+}

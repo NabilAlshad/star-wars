@@ -1,0 +1,19 @@
+.card-container {
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr 1fr;
+	gap: 20px;
+	padding: 50px;
+}
+
+.pagination-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 20px;
+}
+.center-screen {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: auto;
+}
