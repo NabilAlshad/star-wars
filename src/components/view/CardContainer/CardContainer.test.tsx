@@ -1,8 +1,10 @@
 import React from 'react';
-import { render, screen, waitFor } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import CardContainer from './CardContainer';
 import axios from 'Axios';
 import userEvent from '@testing-library/user-event';
+import { getAllDataById } from 'src/services/api';
+import Card from 'src/components/compound/Card/Card';
 
 jest.mock('axios');
 
@@ -16,7 +18,13 @@ jest.mock('@compound/Pagination/Pagination', () => (props: any) => (
 		<button onClick={() => props.setCurrentPage(props.currentPage + 1)}>Next</button>
 	</div>
 ));
+beforeAll(() => {
+	jest.spyOn(console, 'error').mockImplementation(() => {});
+});
 
+afterAll(() => {
+	(console.error as jest.Mock).mockRestore();
+});
 const mockedAxios = axios as jest.Mocked<typeof axios>;
 
 describe('CardContainer', () => {
@@ -112,5 +120,155 @@ describe('CardContainer', () => {
 		await waitFor(() => {
 			expect(mockedAxios.get).toHaveBeenCalledWith(expect.stringContaining('page=2'));
 		});
+	});
+	test('handles items without a name property', async () => {
+		mockedAxios.get.mockResolvedValue({
+			data: {
+				results: [{ name: null }, { someOtherProp: 'value' }],
+				total_records: 2,
+			},
+			status: 200,
+		});
+
+		render(
+			<CardContainer
+				isLoading={false}
+				setIsLoading={mockSetIsLoading}
+				ModalImage={mockModalImage}
+				searchQuery='anything'
+				limit={limit}
+			/>
+		);
+
+		await waitFor(() => {
+			expect(screen.getByText(/No results found/i)).toBeInTheDocument();
+		});
+	});
+	test('handles items without a name property', async () => {
+		mockedAxios.get.mockResolvedValue({
+			data: {
+				results: [{ name: null }, { someOtherProp: 'value' }],
+				total_records: 2,
+			},
+			status: 200,
+		});
+
+		render(
+			<CardContainer
+				isLoading={false}
+				setIsLoading={mockSetIsLoading}
+				ModalImage={mockModalImage}
+				searchQuery='anything'
+				limit={limit}
+			/>
+		);
+
+		await waitFor(() => {
+			expect(screen.getByText(/No results found/i)).toBeInTheDocument();
+		});
+	});
+	test('refetches data when limit prop changes', async () => {
+		const { rerender } = render(
+			<CardContainer
+				isLoading={false}
+				setIsLoading={mockSetIsLoading}
+				ModalImage={mockModalImage}
+				searchQuery=''
+				limit={limit}
+			/>
+		);
+
+		await waitFor(() => {
+			expect(mockedAxios.get).toHaveBeenCalledWith(expect.stringContaining(`limit=${limit}`));
+		});
+
+		const newLimit = 6;
+		rerender(
+			<CardContainer
+				isLoading={false}
+				setIsLoading={mockSetIsLoading}
+				ModalImage={mockModalImage}
+				searchQuery=''
+				limit={newLimit}
+			/>
+		);
+
+		await waitFor(() => {
+			expect(mockedAxios.get).toHaveBeenCalledWith(expect.stringContaining(`limit=${newLimit}`));
+		});
+	});
+	test('renders all cards when searchQuery is only whitespace', async () => {
+		render(
+			<CardContainer
+				isLoading={false}
+				setIsLoading={mockSetIsLoading}
+				ModalImage={mockModalImage}
+				searchQuery='   '
+				limit={limit}
+			/>
+		);
+
+		await waitFor(() => {
+			expect(screen.getAllByTestId('card')).toHaveLength(3);
+		});
+	});
+	test('handles API error and sets loading to false', async () => {
+		mockedAxios.get.mockRejectedValueOnce(new Error('API Error'));
+
+		render(
+			<CardContainer
+				isLoading={false}
+				setIsLoading={mockSetIsLoading}
+				ModalImage={mockModalImage}
+				searchQuery=''
+				limit={limit}
+			/>
+		);
+
+		await waitFor(() => {
+			expect(mockSetIsLoading).toHaveBeenCalledWith(false);
+		});
+	});
+	test('pagination respects total pages (does not go past last page)', async () => {
+		mockedAxios.get.mockResolvedValueOnce({
+			data: {
+				results: [{ name: 'Obi-Wan Kenobi' }],
+				total_records: 12,
+			},
+			status: 200,
+		});
+
+		render(
+			<CardContainer
+				isLoading={false}
+				setIsLoading={mockSetIsLoading}
+				ModalImage={mockModalImage}
+				searchQuery=''
+				limit={limit}
+			/>
+		);
+
+		await waitFor(() => {
+			expect(screen.getByText('Page 1 of 1')).toBeInTheDocument();
+		});
+
+		// Even clicking "Next" should not go to page 2
+		userEvent.click(screen.getByText('Next'));
+
+		// Ensure page 2 is not fetched since there's only 1 page
+		expect(mockedAxios.get).not.toHaveBeenCalledWith(expect.stringContaining('page=2'));
+	});
+	test('shows loading image when isLoading is true', () => {
+		render(
+			<CardContainer
+				isLoading={true}
+				setIsLoading={mockSetIsLoading}
+				ModalImage={mockModalImage}
+				searchQuery=''
+				limit={limit}
+			/>
+		);
+
+		expect(screen.getByAltText(/Loading data/i)).toBeInTheDocument();
 	});
 });

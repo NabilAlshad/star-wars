@@ -7,10 +7,10 @@ import axios from 'Axios';
 const LIMIT = 12;
 
 const CardContainer = ({ isLoading, setIsLoading, ModalImage, searchQuery, limit }: any) => {
-	const [pageData, setPageData] = useState([]);
-	const [filteredData, setFilteredData] = useState([]);
-	const [currentPage, setCurrentPage] = useState(1);
-	const [totalRecords, setTotalRecords] = useState(0);
+	const [pageData, setPageData] = useState<any[]>([]);
+	const [filteredData, setFilteredData] = useState<any[]>([]);
+	const [currentPage, setCurrentPage] = useState<number>(1);
+	const [totalRecords, setTotalRecords] = useState<number>(0);
 
 	const fetchPageData = async (page: number) => {
 		try {

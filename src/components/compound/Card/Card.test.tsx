@@ -78,4 +78,116 @@ describe('Card Component', () => {
 
 		fireEvent.click(screen.getByText('Close'));
 	});
+
+	test('shows loading state while fetching data', async () => {
+		let resolvePromise: any;
+		const mockPromise = new Promise((resolve) => {
+			resolvePromise = resolve;
+		});
+
+		(getAllDataById as jest.Mock).mockReturnValue(mockPromise);
+
+		render(<Card item={item} />);
+		fireEvent.click(screen.getByText(/Click Details/i));
+
+		expect(screen.getByText(/....loading/i)).toBeInTheDocument();
+
+		resolvePromise(mockResponse);
+		await waitFor(() => {
+			expect(screen.getByTestId('modal')).toBeInTheDocument();
+		});
+	});
+
+	test('renders without crashing even if item.name is undefined', () => {
+		const brokenItem = { ...item, name: undefined };
+		render(<Card item={brokenItem} />);
+		// Should render button and two images
+		expect(screen.getAllByRole('img')).toHaveLength(2);
+		expect(screen.getByText(/Click Details/i)).toBeInTheDocument();
+	});
+
+	test('renders without crashing even if item.url is undefined', async () => {
+		const brokenItem = { ...item, url: undefined };
+		render(<Card item={brokenItem} />);
+		fireEvent.click(screen.getByText(/Click Details/i));
+
+		await waitFor(() => {
+			expect(getAllDataById).toHaveBeenCalledWith(undefined);
+		});
+	});
+	test('does not show modal content if API response is not 200', async () => {
+		(getAllDataById as jest.Mock).mockResolvedValueOnce({
+			status: 404,
+			data: {},
+		});
+
+		render(<Card item={item} />);
+		fireEvent.click(screen.getByText(/Click Details/i));
+
+		await waitFor(() => {
+			expect(getAllDataById).toHaveBeenCalledWith(item.url);
+			const modal = screen.getByTestId('modal');
+			expect(modal).toBeEmptyDOMElement(); // modal container exists but no modal content
+
+			// The card header 'Luke Skywalker' remains in DOM
+			// But modal-specific content should NOT be present:
+			expect(screen.queryByText('Jedi Master of the Rebellion')).not.toBeInTheDocument();
+		});
+	});
+
+	test('handles undefined item.url gracefully', async () => {
+		const itemWithoutUrl = { ...item, url: undefined };
+		(getAllDataById as jest.Mock).mockResolvedValueOnce({
+			status: 400,
+			data: {},
+		});
+
+		render(<Card item={itemWithoutUrl} />);
+		fireEvent.click(screen.getByText(/Click Details/i));
+
+		await waitFor(() => {
+			expect(getAllDataById).toHaveBeenCalledWith(undefined);
+			const modal = screen.getByTestId('modal');
+			expect(modal).toBeEmptyDOMElement();
+		});
+	});
+
+	test('shows loading state while fetching data', async () => {
+		let resolvePromise: any;
+		const mockPromise = new Promise((resolve) => {
+			resolvePromise = resolve;
+		});
+
+		(getAllDataById as jest.Mock).mockReturnValue(mockPromise);
+
+		render(<Card item={item} />);
+		fireEvent.click(screen.getByText(/Click Details/i));
+		expect(screen.getByText(/....loading/i)).toBeInTheDocument();
+
+		resolvePromise(mockResponse);
+		await waitFor(() => {
+			expect(screen.queryByText(/....loading/i)).not.toBeInTheDocument();
+			expect(screen.getByTestId('modal')).toBeInTheDocument();
+		});
+	});
+
+	test('loading state toggles during modal open lifecycle', async () => {
+		let resolveFn;
+		const mockPromise = new Promise((resolve) => {
+			resolveFn = resolve;
+		});
+		(getAllDataById as jest.Mock).mockReturnValue(mockPromise);
+
+		render(<Card item={item} />);
+		fireEvent.click(screen.getByText(/Click Details/i));
+
+		expect(screen.getByText(/....loading/i)).toBeInTheDocument();
+
+		resolveFn(mockResponse);
+
+		await waitFor(() => {
+			expect(screen.queryByText(/....loading/i)).not.toBeInTheDocument();
+			expect(screen.getByTestId('modal')).toBeInTheDocument();
+		});
+	});
 });
