@@ -1,5 +1,5 @@
 import React from 'react';
-import './Input.css';
+import './Input.scss';
 const Input = (props: any) => {
 	const { onChangeHandler, onKeyDownHandler } = props;
 	return (

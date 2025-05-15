@@ -2,7 +2,7 @@ import React, { lazy, Suspense, useState } from 'react';
 import ModalImage from '@assets/modal.gif';
 import Input from './components/root/Input/Input';
 import BaseButton from './components/root/BasseButton/BaseButton';
-import './style.css';
+import './style.scss';
 import DropDown from './components/root/DropDown/DropDown';
 
 const CardContainer = lazy(() => import('@view/CardContainer/CardContainer'));

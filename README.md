@@ -55,14 +55,14 @@ npm run coverage
 
 ## Directory Structure (suggested)
 
-/src
-/components → Reusable UI components
-/pages → Route-specific views
-/styles → Tailwind and Sass styles
-/assets → Static assets (images, fonts)
-/utils → Helper functions and constants
-/tests → Unit/integration test files
-index.tsx → Entry point
+- /src
+- /components → Reusable UI components
+- /pages → Route-specific views
+- /styles → Tailwind and Sass styles
+- /assets → Static assets (images, fonts)
+- /utils → Helper functions and constants
+- /tests → Unit/integration test files
+- index.tsx → Entry point
 
 ---
 
