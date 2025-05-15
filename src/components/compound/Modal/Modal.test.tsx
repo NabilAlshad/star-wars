@@ -5,7 +5,7 @@ import Modal from './Modal';
 jest.mock('@assets/swordsman.png', () => 'mocked-character.png');
 jest.mock('../../../assets/single_cover.jpeg', () => 'mocked-cover.jpg');
 
-jest.mock('src/components/root/Table/Table.tsx', () => (props: any) => {
+jest.mock('@root/Table/Table', () => (props: any) => {
 	return <div data-testid='table'>Mocked Table with headers: {props.headers.join(', ')}</div>;
 });
 

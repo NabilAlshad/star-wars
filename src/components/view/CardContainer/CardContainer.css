@@ -17,3 +17,15 @@
 	align-items: center;
 	margin: auto;
 }
+@media (max-width: 768px) {
+	.card-container {
+		grid-template-columns: 1fr 1fr 1fr;
+		padding: 0px;
+	}
+}
+@media (min-width: 320px) and (max-width: 480px) {
+	.card-container {
+		grid-template-columns: 1fr;
+		padding: 0px;
+	}
+}

@@ -1,4 +1,3 @@
-// jest.config.js
 module.exports = {
 	testEnvironment: 'jsdom',
 	transform: {
@@ -14,9 +13,12 @@ module.exports = {
 		'^@view/(.*)$': '<rootDir>/src/components/view/$1',
 		'^@compound/(.*)$': '<rootDir>/src/components/compound/$1',
 		'^@styles/(.*)$': '<rootDir>/src/styles/$1',
+		'^src/(.*)$': '<rootDir>/src/$1', // 👈 Add this line
 		'\\.(css|scss)$': 'identity-obj-proxy',
 		'\\.(png|jpg|jpeg|gif|svg)$': '<rootDir>/__mocks__/fileMock.js',
 	},
+
+	moduleDirectories: ['node_modules', 'src'], // 👈 Optional but helps with src-relative imports
 
 	collectCoverage: true,
 	coverageReporters: ['html', 'text'],

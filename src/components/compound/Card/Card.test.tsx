@@ -3,49 +3,79 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import Card from './Card';
 import { getAllDataById } from 'src/services/api';
 
-jest.mock('../../root/BasseButton/BaseButton', () => (props: any) => (
-	<button {...props}>{props.children}</button>
-));
-jest.mock(
-	'../Modal/Modal',
-	() => (props: any) => props.isShowing ? <div data-testid='modal'>{props.children}</div> : null
-);
-jest.mock('@assets/swordsman.png', () => 'mocked-image-path');
-
-// Mock API
-jest.spyOn(api, getAllDataById).mockImplementation(async () => ({
-	status: 200,
-	data: {
-		result: {
-			gender: 'male',
-			height: '180',
-			eye_color: 'blue',
-		},
-	},
+jest.mock('src/services/api', () => ({
+	getAllDataById: jest.fn(),
 }));
 
-describe('Card component', () => {
-	const mockItem = {
+jest.mock('@assets/swordsman.png', () => 'mocked-character.png');
+
+jest.mock('../Modal/Modal', () => (props: any) => (
+	<div data-testid='modal'>
+		{props.isShowing ? (
+			<div>
+				<p>{props.name}</p>
+				<p>{props.data?.description}</p>
+				<button onClick={props.hide}>Close</button>
+			</div>
+		) : null}
+	</div>
+));
+
+jest.mock('../../root/BasseButton/BaseButton', () => (props: any) => (
+	<button onClick={props.onClick} className={props.className}>
+		{props.children}
+	</button>
+));
+
+describe('Card Component', () => {
+	const item = {
 		name: 'Luke Skywalker',
 		url: 'https://swapi.dev/api/people/1/',
 	};
 
-	test('renders name and button', () => {
-		render(<Card item={mockItem} />);
-		expect(screen.getByText('Luke Skywalker')).toBeInTheDocument();
-		expect(screen.getByRole('button')).toHaveTextContent(/click details/i);
+	const mockResponse = {
+		status: 200,
+		data: {
+			result: {
+				description: 'Jedi Master of the Rebellion',
+				properties: {
+					height: '172',
+					gender: 'male',
+				},
+			},
+		},
+	};
+
+	beforeEach(() => {
+		jest.clearAllMocks();
+		(getAllDataById as jest.Mock).mockResolvedValue(mockResponse);
 	});
 
-	test('calls API and shows modal on button click', async () => {
-		render(<Card item={mockItem} />);
-		fireEvent.click(screen.getByRole('button'));
+	test('renders card with character name and image', () => {
+		render(<Card item={item} />);
+		expect(screen.getByText('Luke Skywalker')).toBeInTheDocument();
+		expect(screen.getAllByRole('img')).toHaveLength(2); // both icons
+		expect(screen.getByText(/Click Details/i)).toBeInTheDocument();
+	});
 
-		expect(screen.getByRole('button')).toHaveTextContent(/loading/i);
+	test('opens modal on button click with data', async () => {
+		render(<Card item={item} />);
+
+		fireEvent.click(screen.getByText(/Click Details/i));
 
 		await waitFor(() => {
-			expect(api.getAllDataById).toHaveBeenCalledWith(mockItem.url);
-			expect(screen.getByTestId('modal')).toBeInTheDocument();
-			expect(screen.getByText('modal open')).toBeInTheDocument();
+			expect(getAllDataById).toHaveBeenCalledWith(item.url);
+			expect(screen.getByTestId('modal')).toHaveTextContent('Luke Skywalker');
+			expect(screen.getByTestId('modal')).toHaveTextContent('Jedi Master of the Rebellion');
 		});
+	});
+
+	test('closes modal when hide is triggered', async () => {
+		render(<Card item={item} />);
+		fireEvent.click(screen.getByText(/Click Details/i));
+
+		await waitFor(() => screen.getByText('Close'));
+
+		fireEvent.click(screen.getByText('Close'));
 	});
 });

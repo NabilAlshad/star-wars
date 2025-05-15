@@ -35,11 +35,11 @@ const Card: React.FC = (props: any) => {
 			<div className='img'></div>
 			<h1 className='name'>
 				<span>
-					<img src={Character} alt='' />
+					<img src={Character} alt='icon-sword' />
 				</span>
 				{item?.name}
 				<span>
-					<img src={Character} alt='' />
+					<img src={Character} alt='icon-sword' />
 				</span>
 			</h1>
 			<BaseButton onClick={modalOpen} className='button'>
