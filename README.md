@@ -4,7 +4,7 @@
 
 ```bash
 git clone <repository-url>
-cd red-it
+cd star-wars
 
 ```
 
