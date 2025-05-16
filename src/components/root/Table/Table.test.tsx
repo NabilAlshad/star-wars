@@ -25,7 +25,7 @@ describe('Table component', () => {
 		expect(screen.getByText('male')).toBeInTheDocument();
 		expect(screen.getByText('fair')).toBeInTheDocument();
 		expect(screen.getByText('blue')).toBeInTheDocument();
-		expect(screen.getByText('180')).toBeInTheDocument();
+		expect(screen.getByText('180m')).toBeInTheDocument();
 	});
 
 	test('table has role region for accessibility', () => {
