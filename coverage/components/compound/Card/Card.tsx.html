@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">94.73% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>19/19</span>
+                <span class='fraction'>18/19</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">66.66% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>3/3</span>
+                <span class='fraction'>2/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">94.73% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>19/19</span>
+                <span class='fraction'>18/19</span>
             </div>
         
             
@@ -130,31 +130,31 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">26x</span>
+<span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">26x</span>
-<span class="cline-any cline-yes">26x</span>
-<span class="cline-any cline-yes">26x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">26x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">26x</span>
-<span class="cline-any cline-yes">8x</span>
-<span class="cline-any cline-yes">8x</span>
-<span class="cline-any cline-yes">8x</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">26x</span>
+<span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -184,9 +184,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useState } from 'react';
 import './Card.scss';
 import Character from '@assets/swordsman.png';
-import BaseButton from '../../root/BasseButton/BaseButton';
+import BaseButton from '@root/BasseButton/BaseButton';
 import Modal from '../Modal/Modal';
-import { getAllDataById } from 'src/services/api';
+import { getAllDataById } from '@services/api';
 &nbsp;
 const Card: React.FC = (props: any) =&gt; {
 	const { item } = props;
@@ -195,8 +195,8 @@ const Card: React.FC = (props: any) =&gt; {
 	const [characterData, setCharacterData] = useState&lt;any&gt;(null);
 	const [loading, setLoading] = useState(false);
 &nbsp;
-	const modalClose = async () =&gt; {
-		setIsShowing(false);
+	const modalClose = <span class="fstat-no" title="function not covered" >as</span>ync () =&gt; {
+<span class="cstat-no" title="statement not covered" >		setIsShowing(false);</span>
 	};
 	const modalOpen = async () =&gt; {
 		setLoading(true);
@@ -229,7 +229,7 @@ const Card: React.FC = (props: any) =&gt; {
 				{loading ? (
 					&lt;span&gt;....loading&lt;/span&gt;
 				) : (
-					&lt;span&gt;{loading ? <span class="branch-0 cbranch-no" title="branch not covered" >'...loading' </span>: 'Click Details'} &lt;/span&gt;
+					&lt;span&gt;{loading ? <span class="branch-0 cbranch-no" title="branch not covered" >'...loading' </span>: 'Hero Details'} &lt;/span&gt;
 				)}
 			&lt;/BaseButton&gt;
 			&lt;Modal data={characterData} name={item?.name} hide={modalClose} isShowing={isShowing}&gt;
@@ -247,7 +247,7 @@ export default React.memo(Card);
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-05-15T19:22:17.177Z
+                at 2025-05-16T11:48:30.759Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

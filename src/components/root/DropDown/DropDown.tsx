@@ -1,6 +1,6 @@
 import React from 'react';
 
-const DropDown = (props) => {
+const DropDown = (props: any) => {
 	const { limit, onLimitChange } = props;
 	return (
 		<div>

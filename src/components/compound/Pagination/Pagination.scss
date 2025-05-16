@@ -46,3 +46,23 @@
 .page-button:disabled {
 	display: none;
 }
+@media (max-width: 767px) {
+	.button-container {
+		flex-direction: column;
+		gap: 10px;
+	}
+
+	.page-button {
+		width: 25px;
+		height: 25px;
+		gap: 0px;
+		padding: 5px;
+		font-size: 14px;
+	}
+	.next-button,
+	.previous-button {
+		width: 80px;
+		height: 20px;
+		font-size: 12px;
+	}
+}

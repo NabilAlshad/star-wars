@@ -6,6 +6,7 @@
 	"scripts": {
 		"test": "jest",
 		"test:watch": "jest --watch",
+		"clear": "jest --clearCache",
 		"coverage": "jest --coverage",
 		"start": "webpack serve --open",
 		"build": "webpack --config webpack.config.js --mode production",

@@ -55,11 +55,7 @@ const CardContainer = ({ isLoading, setIsLoading, ModalImage, searchQuery, limit
 			<div className='card-container'>
 				{isLoading ? (
 					<div className='center-screen'>
-						<img
-							style={{ width: '200px', height: '200px' }}
-							src={ModalImage}
-							alt='Loading data...'
-						/>
+						<p>..loading your heroes</p>
 					</div>
 				) : filteredData.length > 0 ? (
 					filteredData.map((item: any, index: number) => (

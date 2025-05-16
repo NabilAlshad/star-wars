@@ -9,11 +9,11 @@ module.exports = {
 		'^@assets/(.*)$': '<rootDir>/src/assets/$1',
 		'^@utils/(.*)$': '<rootDir>/src/utils/$1',
 		'^@root/(.*)$': '<rootDir>/src/components/root/$1',
-		'^@services/(.*)$': '<rootDir>/src/components/services/$1',
+		'^@services/(.*)$': '<rootDir>/src/services/$1',
 		'^@view/(.*)$': '<rootDir>/src/components/view/$1',
 		'^@compound/(.*)$': '<rootDir>/src/components/compound/$1',
 		'^@styles/(.*)$': '<rootDir>/src/styles/$1',
-		'^src/(.*)$': '<rootDir>/src/$1', // 👈 Add this line
+		'^src/(.*)$': '<rootDir>/src/$1',
 		'\\.(css|scss)$': 'identity-obj-proxy',
 		'\\.(png|jpg|jpeg|gif|svg)$': '<rootDir>/__mocks__/fileMock.js',
 	},

@@ -46,7 +46,7 @@ const Card: React.FC = (props: any) => {
 				{loading ? (
 					<span>....loading</span>
 				) : (
-					<span>{loading ? '...loading' : 'Click Details'} </span>
+					<span>{loading ? '...loading' : 'Hero Details'} </span>
 				)}
 			</BaseButton>
 			<Modal data={characterData} name={item?.name} hide={modalClose} isShowing={isShowing}>

@@ -20,7 +20,7 @@ const Table = (props): any => {
 						<td>{values?.gender}</td>
 						<td>{values?.skin_color}</td>
 						<td>{values?.eye_color}</td>
-						<td>{values?.height}</td>
+						<td>{values?.height}m</td>
 					</tr>
 				</tbody>
 			</table>

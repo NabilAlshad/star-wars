@@ -4,12 +4,13 @@ import Input from './components/root/Input/Input';
 import BaseButton from './components/root/BasseButton/BaseButton';
 import './style.scss';
 import DropDown from './components/root/DropDown/DropDown';
+import Navbar from '@compound/Navbar/Navbar';
 
 const CardContainer = lazy(() => import('@view/CardContainer/CardContainer'));
 
 const App: React.FC = () => {
 	const [inputData, setInputData] = useState('');
-	const [searchTerm, setSearchTerm] = useState(''); // this is the "triggered" search term
+	const [searchTerm, setSearchTerm] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
 	const [limit, setLimit] = useState(12);
 
@@ -18,7 +19,7 @@ const App: React.FC = () => {
 	};
 
 	const onSearchClick = () => {
-		setSearchTerm(inputData.trim()); // update search term only on click
+		setSearchTerm(inputData.trim());
 	};
 	const onKeyDownHandler = (e: React.KeyboardEvent<HTMLInputElement>) => {
 		if (e.key === 'Enter') {
@@ -37,6 +38,7 @@ const App: React.FC = () => {
 						<img style={{ width: '300px', height: '300px' }} src={ModalImage} alt='Loading...' />
 					</div>
 				}>
+				<Navbar />
 				<div className='form-section'>
 					<Input onChangeHandler={onChangeHandler} onKeyDownHandler={onKeyDownHandler} />
 					<BaseButton className='submit-button' onClick={onSearchClick}>

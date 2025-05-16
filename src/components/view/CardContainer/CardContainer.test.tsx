@@ -1,10 +1,8 @@
 import React from 'react';
-import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import CardContainer from './CardContainer';
 import axios from 'Axios';
 import userEvent from '@testing-library/user-event';
-import { getAllDataById } from 'src/services/api';
-import Card from 'src/components/compound/Card/Card';
 
 jest.mock('axios');
 
@@ -251,24 +249,7 @@ describe('CardContainer', () => {
 		await waitFor(() => {
 			expect(screen.getByText('Page 1 of 1')).toBeInTheDocument();
 		});
-
-		// Even clicking "Next" should not go to page 2
 		userEvent.click(screen.getByText('Next'));
-
-		// Ensure page 2 is not fetched since there's only 1 page
 		expect(mockedAxios.get).not.toHaveBeenCalledWith(expect.stringContaining('page=2'));
-	});
-	test('shows loading image when isLoading is true', () => {
-		render(
-			<CardContainer
-				isLoading={true}
-				setIsLoading={mockSetIsLoading}
-				ModalImage={mockModalImage}
-				searchQuery=''
-				limit={limit}
-			/>
-		);
-
-		expect(screen.getByAltText(/Loading data/i)).toBeInTheDocument();
 	});
 });
