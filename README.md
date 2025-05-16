@@ -66,7 +66,7 @@ npm run coverage
 
 ---
 
-## Tooling Configuration/ Technical Guideline
+## Tooling Configuration
 
 ### Babel
 
