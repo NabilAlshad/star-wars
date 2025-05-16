@@ -18,7 +18,7 @@ module.exports = {
 		'\\.(png|jpg|jpeg|gif|svg)$': '<rootDir>/__mocks__/fileMock.js',
 	},
 
-	moduleDirectories: ['node_modules', 'src'],
+	moduleDirectories: ['node_modules', 'src'], 
 
 	collectCoverage: true,
 	coverageReporters: ['html', 'text'],
