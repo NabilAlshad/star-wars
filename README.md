@@ -4,7 +4,7 @@
 
 ```bash
 git clone <repository-url>
-cd red-it
+cd star-wars
 
 ```
 
@@ -66,7 +66,7 @@ npm run coverage
 
 ---
 
-## Tooling Configuration/ Technical Guideline
+## Tooling Configuration
 
 ### Babel
 
